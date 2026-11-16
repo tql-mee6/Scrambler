@@ -1,0 +1,1030 @@
+/* Базовые настройки */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --night: #0d1b2a;
+  --night-soft: #13263a;
+  --warm: #f2a541;
+  --red: #d64545;
+  --teal: #2a9d8f;
+  --text: #e9eef3;
+  --muted: #9fb0c0;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--night);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ===== Контейнеры ===== */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Новый контейнер: тянется на всю ширину, но с большими отступами по краям */
+.container--full {
+  width: 100%;
+  max-width: 100%;
+  padding: 0 6vw; /* Отступы равны 6% от ширины экрана */
+}
+
+.container--narrow {
+  max-width: 800px;
+}
+
+/* ===== Сетка для блока "О фильме" ===== */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr; /* Текст чуть шире картинки */
+  gap: 60px;
+  align-items: center;
+}
+
+.about-image img {
+    width: 100%;
+    height: 100%;
+    max-height: 450px; /* Ограничиваем высоту, чтобы картинка не была гигантской */
+    object-fit: cover; /* Заполняем блок без искажений пропорций */
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  }
+
+/* ===== Первый экран (остается без изменений) ===== */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 80px 24px;
+}
+
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  background: url('images/poster.jpg') center / cover no-repeat;
+  filter: blur(28px) brightness(0.35);
+  transform: scale(1.1);
+  z-index: 0;
+}
+
+.hero__content {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.hero__poster img {
+  width: 100%;
+  border-radius: 16px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.55);
+}
+
+.hero__kicker {
+  font-size: 0.85rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--warm);
+  margin-bottom: 16px;
+}
+
+.hero__title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  line-height: 0.95;
+  background: linear-gradient(90deg, var(--red), var(--warm) 45%, var(--teal));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 24px;
+}
+
+.hero__lead {
+  font-size: 1.15rem;
+  color: var(--text);
+  max-width: 44ch;
+  margin-bottom: 32px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 14px 28px;
+  border-radius: 999px;
+  background: var(--warm);
+  color: #1a1206;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(242,165,65,0.35);
+}
+
+.hero__scroll {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  z-index: 1;
+}
+
+/* ===== ЖИВЫЕ ФОНЫ ДЛЯ СЕКЦИЙ ===== */
+.section {
+  padding: 96px 0;
+  position: relative;
+  overflow: hidden; /* Чтобы пятна не вылезали за края */
+  z-index: 1;
+}
+
+.section--dark {
+  background-color: var(--night);
+  /* Мягкие цветные пятна */
+  background-image: 
+    radial-gradient(circle at 15% 20%, rgba(42, 157, 143, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 85% 80%, rgba(214, 69, 69, 0.08) 0%, transparent 40%);
+}
+
+.section--light {
+  background-color: var(--night-soft);
+  background-image: 
+    radial-gradient(circle at 80% 20%, rgba(242, 165, 65, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 20% 80%, rgba(69, 123, 157, 0.1) 0%, transparent 50%);
+}
+
+.section__title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  margin-bottom: 24px;
+  color: #fff;
+}
+
+.section__text {
+  max-width: 68ch;
+  font-size: 1.05rem;
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+
+/* ===== Блок с цитатой ===== */
+.section--quote {
+  background: linear-gradient(135deg, #0d1b2a 0%, #1a2d42 100%);
+  padding: 80px 0;
+}
+
+.quote {
+  border-left: 4px solid var(--warm);
+  padding-left: 32px;
+}
+
+.quote__text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  font-weight: 400;
+  line-height: 1.4;
+  color: #fff;
+  margin-bottom: 16px;
+  font-style: italic;
+}
+
+.quote__author {
+  font-size: 0.95rem;
+  color: var(--warm);
+  font-style: normal;
+  font-weight: 500;
+}
+
+/* ===== Карточки смысла ===== */
+.cards {
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.card {
+  background: rgba(255,255,255,0.03); /* сделали чуть темнее фон */
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+  padding: 32px; /* увеличили внутренние отступы */
+  transition: transform 0.25s, border-color 0.25s, background 0.25s;
+}
+.card:hover {
+  transform: translateY(-6px);
+  border-color: var(--warm);
+  background: rgba(255,255,255,0.06);
+}
+.card h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+  color: var(--warm);
+}
+.card p { color: var(--muted); font-size: 0.95rem; }
+
+/* ===== Галерея ===== */
+.gallery {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.gallery__img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.gallery__img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 15px 40px rgba(242,165,65,0.2);
+}
+
+/* ===== Создатели ===== */
+.credits-list {
+  list-style: none;
+  max-width: 560px;
+}
+.credits-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.credits-list span { color: var(--muted); }
+.credits-list strong { color: #fff; font-weight: 600; }
+
+/* ===== Подвал ===== */
+.footer {
+  padding: 40px 24px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--muted);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  background: var(--night);
+}
+
+/* ===== Адаптивность ===== */
+@media (max-width: 1024px) {
+  /* На планшетах сетка "О фильме" ломается в колонку */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr; /* Немного выровняли пропорции */
+    gap: 60px;
+    align-items: center;
+  }
+}
+
+@media (max-width: 860px) {
+  .hero__content { grid-template-columns: 1fr; gap: 32px; text-align: center; }
+  .hero__lead { margin-left: auto; margin-right: auto; }
+  .hero__poster { max-width: 360px; margin: 0 auto; }
+  .cards { grid-template-columns: 1fr; }
+  .gallery { grid-template-columns: 1fr; }
+  .section { padding: 64px 0; }
+  .quote { padding-left: 20px; }
+  .container--full { padding: 0 24px; } /* На телефонах отступы обычные */
+}
+
+/* ===== НОВЫЕ ДОПОЛНЕНИЯ ===== */
+
+/* Кнопки-призраки */
+.btn--ghost {
+  background: transparent;
+  border: 1px solid var(--warm);
+  color: var(--warm);
+  margin-left: 10px;
+}
+.btn--ghost:hover {
+  background: var(--warm);
+  color: #1a1206;
+  box-shadow: none;
+}
+
+.hero__buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+
+/* ===== 3D КУБИК РУБИКА ===== */
+.rubik-container {
+  width: 80px;
+  height: 80px;
+  perspective: 600px;
+  margin: 20px 0 30px 0;
+}
+.rubik-cube {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: rotateCube 8s infinite linear;
+}
+.rubik-cube:hover {
+  animation-play-state: paused; /* Останавливается при наведении */
+}
+.face {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border: 2px solid #111;
+  border-radius: 4px;
+  background-size: cover;
+  background-position: center;
+}
+.front  { transform: translateZ(40px); background-color: #d64545; }
+.back   { transform: rotateY(180deg) translateZ(40px); background-color: #f2a541; }
+.right  { transform: rotateY(90deg) translateZ(40px); background-color: #2a9d8f; }
+.left   { transform: rotateY(-90deg) translateZ(40px); background-color: #e9eef3; }
+.top    { transform: rotateX(90deg) translateZ(40px); background-color: #f2a541; }
+.bottom { transform: rotateX(-90deg) translateZ(40px); background-color: #d64545; }
+
+@keyframes rotateCube {
+  0% { transform: rotateX(0deg) rotateY(0deg); }
+  100% { transform: rotateX(360deg) rotateY(360deg); }
+}
+
+/* ===== ВИДЕО ===== */
+.video-wrap {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.video-wrap video {
+  display: block;
+}
+.caption {
+  text-align: center;
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 0.95rem;
+  font-style: italic;
+}
+
+/* ===== ИСТОРИЯ В ДЕТАЛЯХ ===== */
+.story-tabs {
+  display: flex;
+  gap: 12px;
+  margin: 30px 0 40px;
+  flex-wrap: wrap;
+}
+
+.story-tab {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text);
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: none; /* Ваш кастомный курсор */
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.story-tab:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.story-tab.active {
+  background: var(--warm);
+  color: #1a1206;
+  border-color: var(--warm);
+  font-weight: 600;
+  box-shadow: 0 0 15px rgba(242, 165, 65, 0.3);
+}
+
+.story-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 40px;
+}
+
+.story-image img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  transition: opacity 0.3s ease;
+}
+
+.story-text h3 {
+  font-family: 'Montserrat', sans-serif;
+  color: #fff;
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+}
+
+.story-text p {
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  transition: opacity 0.3s ease;
+}
+
+/* Адаптив */
+@media (max-width: 860px) {
+  .story-content { grid-template-columns: 1fr; padding: 24px; }
+  .story-tabs { justify-content: center; }
+}
+
+/* ===== ДВЕ КОЛОНКИ И ФАКТ ===== */
+.two-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+/* ===== БЛОК "СОЗДАНИЕ И КОМАНДА" ===== */
+.two-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: stretch; /* Растягиваем колонки на одну высоту */
+}
+
+/* Улучшенная плашка с фактом */
+.fact-box {
+  background: linear-gradient(145deg, rgba(242, 165, 65, 0.08) 0%, rgba(13, 27, 42, 0.5) 100%);
+  border: 1px solid rgba(242, 165, 65, 0.2);
+  border-radius: 16px;
+  overflow: hidden; /* Чтобы картинка не вылезала за скругления */
+  display: flex;
+  flex-direction: column;
+}
+
+.fact-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  opacity: 0.8;
+  border-bottom: 1px solid rgba(242, 165, 65, 0.2);
+}
+
+.fact-content {
+  padding: 24px;
+}
+
+.fact-content h4 {
+  color: var(--warm);
+  font-family: 'Montserrat', sans-serif;
+  margin-bottom: 12px;
+  font-size: 1.1rem;
+}
+
+.fact-content p {
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* Центрируем список по вертикали, чтобы он смотрелся ровно с картинкой */
+.credits-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+/* ===== ЛАЙТБОКС ===== */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(13, 27, 42, 0.95);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.lightbox[hidden] {
+  display: flex; /* Переопределяем hidden для плавной анимации */
+  pointer-events: none;
+}
+.lightbox.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+.lightbox img {
+  max-width: 90%;
+  max-height: 85vh;
+  border-radius: 12px;
+  box-shadow: 0 0 50px rgba(0,0,0,0.8);
+  transform: scale(0.95);
+  transition: transform 0.3s ease;
+}
+.lightbox.show img {
+  transform: scale(1);
+}
+.lightbox-close {
+  position: absolute;
+  top: 24px;
+  right: 32px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 3rem;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.2s;
+}
+.lightbox-close:hover {
+  color: var(--warm);
+}
+
+/* ===== АНИМАЦИЯ ПОЯВЛЕНИЯ (SCROLL REVEAL) ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.5, 0, 0, 1), transform 0.8s cubic-bezier(0.5, 0, 0, 1);
+}
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== АДАПТИВ ===== */
+@media (max-width: 860px) {
+  .hero__buttons { justify-content: center; }
+  .two-cols { grid-template-columns: 1fr; }
+  .timeline { justify-content: center; }
+  .lightbox-close { top: 15px; right: 20px; font-size: 2.5rem; }
+}
+
+/* ===== 3D КУБИК РУБИКА (С СЕТКОЙ) ===== */
+.rubik-container {
+  width: 80px;
+  height: 80px;
+  perspective: 600px;
+  margin: 20px 0 30px 0;
+}
+.rubik-cube {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: rotateCube 8s infinite linear;
+}
+.rubik-cube:hover {
+  animation-play-state: paused;
+}
+
+/* Базовая текстура сетки (черные линии крест-накрест) */
+.face {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border: 2px solid #111;
+  border-radius: 4px;
+  /* Рисуем сетку 3х3 */
+  background-image: 
+    linear-gradient(to right, #111 2px, transparent 2px),
+    linear-gradient(to bottom, #111 2px, transparent 2px);
+  background-size: 33.33% 33.33%;
+  background-position: center;
+}
+
+/* Цвета граней (классические цвета кубика Рубика) */
+.front  { transform: translateZ(40px); background-color: #d64545; } /* Красный */
+.back   { transform: rotateY(180deg) translateZ(40px); background-color: #f2a541; } /* Оранжевый */
+.right  { transform: rotateY(90deg) translateZ(40px); background-color: #2a9d8f; } /* Зеленый */
+.left   { transform: rotateY(-90deg) translateZ(40px); background-color: #e9eef3; } /* Белый */
+.top    { transform: rotateX(90deg) translateZ(40px); background-color: #ffd166; } /* Желтый */
+.bottom { transform: rotateX(-90deg) translateZ(40px); background-color: #457b9d; } /* Синий */
+
+@keyframes rotateCube {
+  0% { transform: rotateX(0deg) rotateY(0deg); }
+  100% { transform: rotateX(360deg) rotateY(360deg); }
+}
+
+/* Центрирование заголовка и подписи в блоке с видео */
+#video .section__title {
+  text-align: center;
+}
+#video .caption {
+  text-align: center;
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 0.95rem;
+  font-style: italic;
+}
+
+/* ===== КАСТОМНЫЙ КУРСОР ===== */
+body {
+  /* Стандартный курсор скрываем */
+  cursor: none; 
+}
+
+/* Рисуем курсор-кубик через SVG */
+a, button, .gallery__img, .timeline-item {
+  cursor: none; /* Убираем стандартную руку на кликабельных элементах */
+}
+
+/* ===== КАСТОМНЫЙ КУРСОР С ПОДСВЕТКОЙ ===== */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease-out;
+  
+  /* Сетка 3х3 (линии сделали белыми для контраста) */
+  background-image: 
+    linear-gradient(to right, #fff 2px, transparent 2px),
+    linear-gradient(to bottom, #fff 2px, transparent 2px);
+  background-size: 33.33% 33.33%;
+  border: 2px solid #fff;
+  border-radius: 4px;
+  
+  /* Мягкое свечение вокруг курсора */
+  box-shadow: 0 0 15px 4px rgba(242, 165, 65, 0.6), inset 0 0 8px rgba(242, 165, 65, 0.4);
+}
+
+/* Эффект при клике */
+.custom-cursor.clicking {
+  transform: translate(-50%, -50%) scale(0.8);
+  box-shadow: 0 0 25px 8px rgba(242, 165, 65, 0.9);
+}
+
+/* Эффект при клике (курсор сжимается) */
+.custom-cursor.clicking {
+  transform: translate(-50%, -50%) scale(0.8);
+}
+
+/* ===== 3D КУБИК (Интерактив) ===== */
+.scene {
+  width: 100%;
+  height: 220px; /* Уменьшили высоту, чтобы не было пустоты */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1200px;
+  margin: 0 auto;
+}
+
+.cube {
+  width: 160px;
+  height: 160px;
+  position: relative;
+  transform-style: preserve-3d;
+  /* Начальный угол, чтобы было видно 3 грани */
+  transform: rotateX(-20deg) rotateY(-30deg); 
+  cursor: grab;
+}
+
+.cube:active {
+  cursor: grabbing;
+}
+
+/* Общие стили для всех граней */
+.cube-face {
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  background-color: #111; /* Цвет швов */
+  border: 2px solid #000;
+  border-radius: 6px;
+  /* Сетка 3х3 */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 4px;
+  padding: 4px;
+  box-sizing: border-box;
+  backface-visibility: visible; /* Чтобы внутренние грани были видны при вращении */
+}
+
+/* Квадратики внутри граней */
+.cube-cell {
+  border-radius: 3px;
+  box-shadow: inset 0 0 4px rgba(0,0,0,0.5);
+}
+
+/* Позиционирование граней в 3D */
+.front  { transform: translateZ(80px); }
+.back   { transform: rotateY(180deg) translateZ(80px); }
+.right  { transform: rotateY(90deg) translateZ(80px); }
+.left   { transform: rotateY(-90deg) translateZ(80px); }
+.top    { transform: rotateX(90deg) translateZ(80px); }
+.bottom { transform: rotateX(-90deg) translateZ(80px); }
+
+/* Эффект тени под кубиком */
+.scene::after {
+  content: '';
+  position: absolute;
+  bottom: 50px;
+  width: 200px;
+  height: 20px;
+  background: rgba(0,0,0,0.5);
+  border-radius: 50%;
+  filter: blur(10px);
+  z-index: -1;
+}
+
+/* ===== КАСТОМНЫЙ СКРОЛЛБАР ===== */
+/* Для Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 10px; /* Ширина полосы */
+}
+
+::-webkit-scrollbar-track {
+  background: var(--night); /* Темный фон (как у сайта) */
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15); /* Серый ползунок */
+  border-radius: 5px;
+  border: 2px solid var(--night); /* Отступы, чтобы ползунок не прилипал к краям */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--warm); /* Желтый при наведении */
+}
+
+/* Для Firefox */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.15) var(--night);
+}
+
+/* ===== КАСТОМНЫЙ СКРОЛЛБАР ===== */
+/* Для Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 10px; /* Ширина полосы */
+}
+
+::-webkit-scrollbar-track {
+  background: var(--night); /* Темный фон (как у сайта) */
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15); /* Серый ползунок */
+  border-radius: 5px;
+  border: 2px solid var(--night); /* Отступы, чтобы ползунок не прилипал к краям */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--warm); /* Желтый при наведении */
+}
+
+/* Для Firefox */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.15) var(--night);
+}
+
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -10%); }
+  20% { transform: translate(-15%, 5%); }
+  30% { transform: translate(7%, -25%); }
+  40% { transform: translate(-5%, 25%); }
+  50% { transform: translate(-15%, 10%); }
+  60% { transform: translate(15%, 0%); }
+  70% { transform: translate(0%, 15%); }
+  80% { transform: translate(3%, 35%); }
+  90% { transform: translate(-10%, 10%); }
+}
+
+/* Применяем анимацию к шуму */
+body::after {
+  animation: grain 8s steps(10) infinite;
+  /* Увеличиваем размер, чтобы при сдвиге не было пустых краев */
+  width: 300vw; 
+  height: 300vh;
+  top: -100vh;
+  left: -100vw;
+}
+
+/* Уменьшаем нижний отступ у секции с кубиком */
+#minigame {
+  padding-bottom: 40px; /* Было 96px по умолчанию */
+}
+
+/* ===== БЕГУЩАЯ СТРОКА ===== */
+.marquee-wrapper {
+  width: 100%;
+  overflow: hidden;
+  background: var(--warm);
+  color: #1a1206; /* Темный текст для контраста */
+  padding: 12px 0;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.marquee {
+  display: flex;
+  white-space: nowrap;
+}
+
+.marquee-content {
+  display: flex;
+  animation: scrollMarquee 20s linear infinite;
+}
+
+/* Пауза при наведении (чтобы можно было прочитать) */
+.marquee-wrapper:hover .marquee-content {
+  animation-play-state: paused;
+}
+
+@keyframes scrollMarquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); } /* Сдвигаем ровно на половину (один дубль текста) */
+}
+
+/* ===== ДОПОЛНИТЕЛЬНЫЕ АНИМАЦИИ ===== */
+
+/* 1. Легкое парение для 3D-кубика (чтобы он не просто стоял) */
+.cube {
+  animation: floatCube 4s ease-in-out infinite;
+}
+
+@keyframes floatCube {
+  0% { transform: translateY(0px) rotateX(-20deg) rotateY(-30deg); }
+  50% { transform: translateY(-15px) rotateX(-20deg) rotateY(-30deg); }
+  100% { transform: translateY(0px) rotateX(-20deg) rotateY(-30deg); }
+}
+/* Отменяем парение при перетаскивании мышкой, чтобы не мешало */
+.cube:active {
+  animation: none;
+}
+
+/* 2. Пульсация для кнопки "Смотреть фильм" */
+.btn {
+  position: relative;
+  overflow: hidden;
+}
+.btn::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%; width: 50%; height: 100%;
+  background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+  transform: skewX(-25deg);
+  animation: shine 4s infinite;
+}
+
+@keyframes shine {
+  0% { left: -100%; }
+  20% { left: 200%; }
+  100% { left: 200%; }
+}
+
+/* 3. Легкое увеличение картинок в галерее при наведении (уже было, но усилим) */
+.gallery__img {
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+}
+.gallery__img:hover {
+  transform: scale(1.05) rotate(1deg);
+  box-shadow: 0 20px 40px rgba(242,165,65,0.3);
+}
+
+/* ===== АНИМАЦИИ ДЛЯ ВСЕГО САЙТА ===== */
+
+/* 1. Анимация появления для первого экрана (Главная) */
+.hero__poster {
+  animation: slideInLeft 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  opacity: 0;
+}
+
+.hero__text {
+  animation: slideInRight 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  opacity: 0;
+  animation-delay: 0.2s; /* Текст появляется чуть позже постера */
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-50px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(50px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* 2. Каскадное появление элементов внутри hero (заголовок, текст, кнопки) */
+.hero__kicker { animation: fadeInUp 0.8s ease forwards; animation-delay: 0.4s; opacity: 0; }
+.hero__title { animation: fadeInUp 0.8s ease forwards; animation-delay: 0.6s; opacity: 0; }
+.hero__lead { animation: fadeInUp 0.8s ease forwards; animation-delay: 0.8s; opacity: 0; }
+.hero__buttons { animation: fadeInUp 0.8s ease forwards; animation-delay: 1s; opacity: 0; }
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 3. Пульсация для стрелки "Листайте вниз" */
+.hero__scroll {
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+  40% { transform: translateX(-50%) translateY(-10px); }
+  60% { transform: translateX(-50%) translateY(-5px); }
+}
+
+/* 4. Улучшенный эффект появления блоков при скролле (Scroll Reveal) */
+/* Делаем появление более плавным и с легким увеличением */
+.reveal {
+  opacity: 0;
+  transform: translateY(60px) scale(0.98);
+  transition: opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1), 
+              transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: transform, opacity;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* 5. Плавное появление карточек по очереди */
+.cards .card {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.active .card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Задержки для карточек, чтобы они появлялись друг за другом */
+.reveal.active .card:nth-child(1) { transition-delay: 0.1s; }
+.reveal.active .card:nth-child(2) { transition-delay: 0.2s; }
+.reveal.active .card:nth-child(3) { transition-delay: 0.3s; }
+
+/* 6. Легкое покачивание (hover) для карточек смысла */
+.card {
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.3), 0 0 20px rgba(242, 165, 65, 0.1);
+}
+
+/* 7. Плавное появление для видео и картинок */
+.video-wrap, .about-image img, .gallery__img {
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+/* 8. Эффект для навигационных кнопок (История в деталях) */
+.story-tab {
+  transition: all 0.3s ease;
+}
+.story-tab:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
