@@ -1048,3 +1048,41 @@ body::after {
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
+
+/* ===== ИДЕАЛЬНОЕ ВИДЕО ДЛЯ RUTUBE ===== */
+
+/* Центрируем блок на странице */
+.rutube-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 40px 6vw; /* Отступы, как у остальных секций */
+  background-color: var(--night); /* Темный фон */
+  position: relative;
+  z-index: 2;
+}
+
+/* Жёстко задаём пропорции 16:9 и ограничиваем ширину */
+.rutube-box {
+  width: 100%;
+  max-width: 1000px; /* Максимальная ширина видео */
+  aspect-ratio: 16 / 9; /* Пропорции */
+  position: relative;
+  background: #000;
+  border-radius: 16px;
+  overflow: hidden; /* Скрываем всё лишнее */
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Настраиваем iframe внутри */
+.rutube-box iframe {
+  position: absolute;
+  top: -10%;     /* Сдвигаем плеер вверх */
+  left: -5%;     /* Сдвигаем влево */
+  width: 110%;   /* Увеличиваем ширину */
+  height: 120%;  /* Увеличиваем высоту, чтобы скрыть кнопку RUTUBE */
+  border: none;
+  pointer-events: auto;
+}
