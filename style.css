@@ -373,23 +373,25 @@ body {
 
 /* ===== ВИДЕО ===== */
 .video-wrap {
+  position: relative;
   width: 100%;
-  max-width: 900px;
+  max-width: 1000px; /* Сделаем видео чуть шире */
   margin: 0 auto;
+  aspect-ratio: 16 / 9; /* Жёстко задаём пропорции 16:9 */
+  background: #000;
   border-radius: 16px;
-  overflow: hidden;
+  overflow: hidden; /* Скрываем всё, что вылезает за края */
   box-shadow: 0 20px 50px rgba(0,0,0,0.6);
   border: 1px solid rgba(255,255,255,0.1);
 }
-.video-wrap video {
-  display: block;
-}
-.caption {
-  text-align: center;
-  margin-top: 16px;
-  color: var(--muted);
-  font-size: 0.95rem;
-  font-style: italic;
+
+.video-wrap iframe {
+  position: absolute;
+  top: -10%;    /* Сдвигаем плеер вверх */
+  left: -5%;    /* И немного влево */
+  width: 110%;  /* Делаем его больше контейнера */
+  height: 120%; /* Делаем его выше контейнера */
+  border: none;
 }
 
 /* ===== ИСТОРИЯ В ДЕТАЛЯХ ===== */
