@@ -371,27 +371,45 @@ body {
   100% { transform: rotateX(360deg) rotateY(360deg); }
 }
 
-/* ===== ВИДЕО ===== */
-.video-wrap {
+/* ===== ВИДЕО (НОВЫЕ СТИЛИ) ===== */
+
+/* Обёртка для центрирования и ограничения ширины */
+.video-wrapper {
+  width: 100%;
+  max-width: 1000px; /* Максимальная ширина видео */
+  margin: 0 auto;
+  padding: 0 15px; /* Отступы для мобильных */
+}
+
+/* Контейнер, который держит пропорции 16:9 */
+.video-container {
   position: relative;
   width: 100%;
-  max-width: 1000px; /* Сделаем видео чуть шире */
-  margin: 0 auto;
-  aspect-ratio: 16 / 9; /* Жёстко задаём пропорции 16:9 */
+  aspect-ratio: 16 / 9; /* Жёсткие пропорции */
   background: #000;
   border-radius: 16px;
-  overflow: hidden; /* Скрываем всё, что вылезает за края */
+  overflow: hidden; /* Обрезаем кнопку RUTUBE */
   box-shadow: 0 20px 50px rgba(0,0,0,0.6);
   border: 1px solid rgba(255,255,255,0.1);
 }
 
-.video-wrap iframe {
+/* Сам iframe */
+.video-container iframe {
   position: absolute;
-  top: -10%;    /* Сдвигаем плеер вверх */
-  left: -5%;    /* И немного влево */
-  width: 110%;  /* Делаем его больше контейнера */
-  height: 120%; /* Делаем его выше контейнера */
+  top: -12%;      /* Сдвигаем вверх, чтобы убрать кнопку */
+  left: -5%;      /* Немного влево */
+  width: 110%;    /* Делаем шире контейнера */
+  height: 125%;   /* Делаем выше контейнера */
   border: none;
+  pointer-events: auto;
+}
+
+.caption {
+  text-align: center;
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 0.95rem;
+  font-style: italic;
 }
 
 /* ===== ИСТОРИЯ В ДЕТАЛЯХ ===== */
